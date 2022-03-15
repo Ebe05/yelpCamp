@@ -1,0 +1,147 @@
+<% layout("./boilerplate.ejs") %>
+    <main class="container">
+        <div class="row">
+            <h1 class="text-center">
+                Edit <%= camp.title %>
+            </h1>
+        </div>
+        <form action="/campgrounds/<%= camp._id %>?_method=PATCH" method="post"
+            class="needs-validation w-50 p-3 mx-auto" novalidate id="edit" enctype="multipart/form-data">
+            <div class="row mb-3">
+                <div class="col">
+                    <div>
+                        <label class="form-label" for="title"> Title</label>
+                        <input class="form-control" type="text" id="title" name="title" value="<%= camp.title %> "
+                            required>
+                    </div>
+
+                </div>
+                <div class="col">
+                    <div>
+                        <label class="form-label" for="location">Location</label>
+                        <input class="form-control" type="text" id="location" name="location"
+                            value="<%= camp.location %> " required>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="row mb-3">
+                <div>
+                    <label class="form-label" for="description">Description</label>
+                    <textarea name="description" id="description" cols="30" rows="5" class="form-control"
+                        required><%= camp.description %> </textarea>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <div>
+                        <label class="form-label" for="price">Price</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="text" class="form-control" id="price" name="price" value="<%= camp.price %> "
+                                required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label class="form-label" for="image">Add images</label>
+                        <input class="form-control" type="file" id="image" name="image" multiple>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div>
+                    <button type="submit" class="btn btn-primary" form="edit">Done</button>
+                    <button type="submit" class="btn btn-danger" id="deleteBtn" form="delete">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </form>
+        <form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="post" class="w-50 p-3 mx-auto" id="delete">
+        </form>
+
+        <% for(img of camp.images) {%>
+            <div class="row">
+                <div class="col-4 mx-auto">
+                    <div class="card mb-3">
+                        <img src="<%= img.url %> " class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-subtitle mb-2 text-muted">
+                                <%= img.filename %>
+                            </h5>
+                            <div class="d-flex">
+                                <form action="/campgrounds/<%= camp._id %>/<%= img.filename %>?_method=DELETE "
+                                    class="ms-auto" id="imgdelete" method="post">
+                                    <button type="submit" class="btn-close p-0 ms-auto" aria-label="Close"
+                                        form="imgdelete"></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+    </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
