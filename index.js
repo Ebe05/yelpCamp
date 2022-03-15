@@ -44,8 +44,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
 
 //express session configuration 
-const dbUrl = process.env.DB_URL
-const secret = process.env.SECRET
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelpCamp'
+const secret = process.env.SECRET || 'thisisnotasecret'
 
 const sessionConfig =
 {
@@ -112,7 +112,7 @@ app.use((err, req, res, next) => {
 })
 
 //setting up server
-const port = process.env.PORT
+const port = process.env.PORT || 8080
 app.listen(port, () => {
     console.log(`serving on port ${port}`)
 })
