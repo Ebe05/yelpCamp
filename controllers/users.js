@@ -25,13 +25,18 @@ module.exports.loginForm = (req, res, next) => {
 }
 
 module.exports.login = (req, res, next) => {
-    if (req.session.requestedPath) {
-        res.redirect(req.session.requestedPath)
-    }
-    else {
-        res.redirect('/campgrounds')
-    }
+    try {
+        if (req.session.requestedPath) {
+            res.redirect(req.session.requestedPath)
+        }
+        else {
+            res.redirect('/campgrounds')
+        }
 
+    }
+    catch {
+        res.redirect('/')
+    }
 }
 
 module.exports.logout = (req, res, next) => {
