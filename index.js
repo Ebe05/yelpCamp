@@ -108,7 +108,8 @@ app.use('/campgrounds/:id/reviews', reviews)
 app.use((err, req, res, next) => {
     console.log(err)
     const { statusCode = 500, message = 'something went wrong' } = err
-    res.status(statusCode).send(message)
+    res.status(statusCode)
+    res.render('error.ejs', { message })
 })
 
 //setting up server
